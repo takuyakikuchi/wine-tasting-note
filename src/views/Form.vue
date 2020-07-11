@@ -12,7 +12,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Form, FormItem, Button } from "element-ui";
 
-import Appearance from "@/components/Apperance.vue";
+import Appearance from "@/components/Appearance.vue";
 
 @Component({
   components: {
@@ -25,8 +25,8 @@ import Appearance from "@/components/Apperance.vue";
 export default class MainForm extends Vue {
   formInput = {};
 
-  private updateForm(formInput) {
-    this.formInput = formInput;
+  private updateForm(updatedInput: any) {
+    this.formInput = updatedInput;
   }
 }
 </script>

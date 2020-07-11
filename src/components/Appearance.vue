@@ -2,7 +2,7 @@
   <div>
     <h1>外観</h1>
     <el-form-item label="清澄度">
-      <el-checkbox-group v-model="formInput.clarity">
+      <el-checkbox-group v-model="clarity">
         <el-checkbox
           v-for="(option, index) in clarityOptions"
           :key="index"
@@ -12,7 +12,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="輝き">
-      <el-checkbox-group v-model="formInput.brightness">
+      <el-checkbox-group v-model="brightness">
         <el-checkbox
           v-for="(option, index) in brightnessOptions"
           :key="index"
@@ -22,7 +22,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="色調">
-      <el-checkbox-group v-model="formInput.tone">
+      <el-checkbox-group v-model="tone">
         <el-checkbox
           v-for="(option, index) in toneOptions"
           :key="index"
@@ -32,7 +32,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="濃淡">
-      <el-checkbox-group v-model="formInput.shades">
+      <el-checkbox-group v-model="shades">
         <el-checkbox
           v-for="(option, index) in shadesOptions"
           :key="index"
@@ -42,7 +42,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="粘性">
-      <el-checkbox-group v-model="formInput.viscosity">
+      <el-checkbox-group v-model="viscosity">
         <el-checkbox
           v-for="(option, index) in viscosityOptions"
           :key="index"
@@ -52,7 +52,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="外観の印象">
-      <el-checkbox-group v-model="formInput.appearanceImpression">
+      <el-checkbox-group v-model="appearanceImpression">
         <el-checkbox
           v-for="(option, index) in appearanceImpressionOptions"
           :key="index"
@@ -76,6 +76,16 @@ import { FormItem, Checkbox, CheckboxGroup } from "element-ui";
   }
 })
 export default class Appearance extends Vue {
+  private appearanceForm = {};
+
+  // Each Categories
+  private clarity = [];
+  private brightness = [];
+  private tone = [];
+  private shades = [];
+  private viscosity = [];
+  private appearanceImpression = [];
+
   // Options
   readonly clarityOptions = ["澄んだ", "深みのある", "やや濁った", "濁った"];
   readonly brightnessOptions = ["輝きのある", "落ち着いた", "モヤがかかった"];
@@ -110,18 +120,26 @@ export default class Appearance extends Vue {
     "濃縮感が強い"
   ];
 
-  formInput = {
-    clarity: [],
-    brightness: [],
-    tone: [],
-    shades: [],
-    viscosity: [],
-    appearanceImpression: []
-  };
+  private setFormInput() {
+    return (this.appearanceForm = {
+      clarity: this.clarity,
+      brightness: this.brightness,
+      tone: this.tone,
+      shades: this.shades,
+      viscosity: this.viscosity,
+      appearanceImpression: this.appearanceImpression
+    });
+  }
 
-  @Watch("formInput")
-  updateForm(formInput) {
-    this.$emit("updateForm", formInput);
+  @Watch("clarity")
+  @Watch("brightness")
+  @Watch("tone")
+  @Watch("shades")
+  @Watch("viscosity")
+  @Watch("appearanceImpression")
+  updateForm() {
+    const updatedForm = this.setFormInput();
+    this.$emit("updateForm", updatedForm);
   }
 }
 </script>
