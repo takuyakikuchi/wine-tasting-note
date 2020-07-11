@@ -2,6 +2,7 @@
   <el-form label-width="120px">
     <appearance @updateForm="updateForm" />
     <aroma @updateForm="updateForm" />
+    <taste @updateForm="updateForm" />
     <el-form-item>
       <el-button type="primary">Create</el-button>
       <el-button>Cancel</el-button>
@@ -16,6 +17,7 @@ import { Form, FormItem, Button } from "element-ui";
 // Categories
 import Appearance from "@/components/Appearance.vue";
 import Aroma from "@/components/Aroma.vue";
+import Taste from "@/components/Taste.vue";
 
 @Component({
   components: {
@@ -23,7 +25,8 @@ import Aroma from "@/components/Aroma.vue";
     "el-form-item": FormItem,
     "el-form": Form,
     Appearance,
-    Aroma
+    Aroma,
+    Taste
   }
 })
 export default class MainForm extends Vue {
