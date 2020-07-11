@@ -139,7 +139,7 @@ export default class Appearance extends Vue {
   @Watch("appearanceImpression")
   updateForm() {
     const updatedForm = this.setFormInput();
-    this.$emit("updateForm", updatedForm);
+    this.$emit("updateForm", updatedForm, "appearance");
   }
 }
 </script>
