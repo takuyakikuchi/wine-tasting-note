@@ -2,7 +2,7 @@
   <div>
     <h1>香り</h1>
     <el-form-item label="第一印象">
-      <el-checkbox-group v-model="firstImpression">
+      <el-checkbox-group v-model="aromaForm.firstImpression">
         <el-checkbox
           v-for="(option, index) in firstImpressionOptions"
           :key="index"
@@ -12,7 +12,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="果実">
-      <el-checkbox-group v-model="fruit">
+      <el-checkbox-group v-model="aromaForm.fruit">
         <el-checkbox
           v-for="(option, index) in fruitOptions"
           :key="index"
@@ -22,7 +22,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="花/植物">
-      <el-checkbox-group v-model="flower">
+      <el-checkbox-group v-model="aromaForm.flower">
         <el-checkbox
           v-for="(option, index) in flowerOptions"
           :key="index"
@@ -32,7 +32,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="芳香/香辛料/化学物質">
-      <el-checkbox-group v-model="spice">
+      <el-checkbox-group v-model="aromaForm.spice">
         <el-checkbox
           v-for="(option, index) in spiceOptions"
           :key="index"
@@ -42,7 +42,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="香りの印象">
-      <el-checkbox-group v-model="aromaImpression">
+      <el-checkbox-group v-model="aromaForm.aromaImpression">
         <el-checkbox
           v-for="(option, index) in aromaImpressionOptions"
           :key="index"
@@ -58,6 +58,8 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { FormItem, Checkbox, CheckboxGroup } from "element-ui";
 
+import { AromaFields } from "@/types/types";
+
 @Component({
   components: {
     "el-checkbox": Checkbox,
@@ -66,14 +68,13 @@ import { FormItem, Checkbox, CheckboxGroup } from "element-ui";
   }
 })
 export default class Aroma extends Vue {
-  private aromaForm = {};
-
-  // Each Categories
-  private firstImpression = [];
-  private fruit = [];
-  private flower = [];
-  private spice = [];
-  private aromaImpression = [];
+  private aromaForm: AromaFields = {
+    firstImpression: [],
+    fruit: [],
+    flower: [],
+    spice: [],
+    aromaImpression: []
+  };
 
   // Options
   readonly firstImpressionOptions = [
@@ -147,24 +148,13 @@ export default class Aroma extends Vue {
     "木樽からのニュアンス"
   ];
 
-  private setFormInput() {
-    return (this.aromaForm = {
-      firstImpression: this.firstImpression,
-      fruit: this.fruit,
-      flower: this.flower,
-      spice: this.spice,
-      aromaImpression: this.aromaImpression
-    });
-  }
-
-  @Watch("firstImpression")
-  @Watch("fruit")
-  @Watch("flower")
-  @Watch("spice")
-  @Watch("aromaImpression")
+  @Watch("aromaForm.firstImpression")
+  @Watch("aromaForm.fruit")
+  @Watch("aromaForm.flower")
+  @Watch("aromaForm.spice")
+  @Watch("aromaForm.aromaImpression")
   updateForm() {
-    const updatedForm = this.setFormInput();
-    this.$emit("updateForm", updatedForm, "aroma");
+    this.$emit("updateForm", this.aromaForm, "aroma");
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <div>
     <h1>評価、結論</h1>
     <el-form-item label="評価">
-      <el-checkbox-group v-model="evaluation">
+      <el-checkbox-group v-model="conclusionForm.evaluation">
         <el-checkbox
           v-for="(option, index) in evaluationOptions"
           :key="index"
@@ -12,9 +12,9 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="適正温度">
-      <el-checkbox-group v-model="temprature">
+      <el-checkbox-group v-model="conclusionForm.temperature">
         <el-checkbox
-          v-for="(option, index) in tempratureOptions"
+          v-for="(option, index) in temperatureOptions"
           :key="index"
           :label="option"
           :value="option"
@@ -22,7 +22,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="グラス">
-      <el-checkbox-group v-model="glass">
+      <el-checkbox-group v-model="conclusionForm.glass">
         <el-checkbox
           v-for="(option, index) in glassOptions"
           :key="index"
@@ -32,7 +32,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="デカンタージュ">
-      <el-checkbox-group v-model="decantage">
+      <el-checkbox-group v-model="conclusionForm.decantage">
         <el-checkbox
           v-for="(option, index) in decantageOptions"
           :key="index"
@@ -42,7 +42,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="収穫年">
-      <el-checkbox-group v-model="vintage">
+      <el-checkbox-group v-model="conclusionForm.vintage">
         <el-checkbox
           v-for="(option, index) in vintageOptions"
           :key="index"
@@ -52,7 +52,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="生産国">
-      <el-checkbox-group v-model="country">
+      <el-checkbox-group v-model="conclusionForm.country">
         <el-checkbox
           v-for="(option, index) in countryOptions"
           :key="index"
@@ -62,7 +62,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="主なブドウ品種">
-      <el-checkbox-group v-model="grape">
+      <el-checkbox-group v-model="conclusionForm.grape">
         <el-checkbox
           v-for="(option, index) in grapeOptions"
           :key="index"
@@ -78,6 +78,8 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { FormItem, Checkbox, CheckboxGroup } from "element-ui";
 
+import { ConclusionFields } from "@/types/types";
+
 @Component({
   components: {
     "el-checkbox": Checkbox,
@@ -86,16 +88,15 @@ import { FormItem, Checkbox, CheckboxGroup } from "element-ui";
   }
 })
 export default class Conclusion extends Vue {
-  private conclusionForm = {};
-
-  // Each Categories
-  private evaluation = [];
-  private temprature = [];
-  private glass = [];
-  private decantage = [];
-  private vintage = [];
-  private country = [];
-  private grape = [];
+  private conclusionForm: ConclusionFields = {
+    evaluation: [],
+    temperature: [],
+    glass: [],
+    decantage: [],
+    vintage: [],
+    country: [],
+    grape: []
+  };
 
   // Options
   readonly evaluationOptions = [
@@ -105,7 +106,7 @@ export default class Conclusion extends Vue {
     "濃縮し力強い",
     "ポテンシャルがある"
   ];
-  readonly tempratureOptions = [
+  readonly temperatureOptions = [
     "10度未満",
     "10-13度",
     "14-16度",
@@ -148,28 +149,15 @@ export default class Conclusion extends Vue {
     "ジンファンデル"
   ];
 
-  private setFormInput() {
-    return (this.conclusionForm = {
-      evaluation: this.evaluation,
-      temprature: this.temprature,
-      glass: this.glass,
-      decantage: this.decantage,
-      vintage: this.vintage,
-      country: this.country,
-      grape: this.grape
-    });
-  }
-
-  @Watch("evaluation")
-  @Watch("temprature")
-  @Watch("glass")
-  @Watch("decantage")
-  @Watch("vintage")
-  @Watch("country")
-  @Watch("grape")
+  @Watch("conclusionForm.evaluation")
+  @Watch("conclusionForm.temperature")
+  @Watch("conclusionForm.glass")
+  @Watch("conclusionForm.decantage")
+  @Watch("conclusionForm.vintage")
+  @Watch("conclusionForm.country")
+  @Watch("conclusionForm.grape")
   updateForm() {
-    const updatedForm = this.setFormInput();
-    this.$emit("updateForm", updatedForm, "conclusion");
+    this.$emit("updateForm", this.conclusionForm, "conclusion");
   }
 }
 </script>
