@@ -2,7 +2,7 @@
   <div>
     <h1>味わい</h1>
     <el-form-item label="アタック">
-      <el-checkbox-group v-model="attack">
+      <el-checkbox-group v-model="tasteForm.attack">
         <el-checkbox
           v-for="(option, index) in attackOptions"
           :key="index"
@@ -12,7 +12,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="甘み">
-      <el-checkbox-group v-model="sweetness">
+      <el-checkbox-group v-model="tasteForm.sweetness">
         <el-checkbox
           v-for="(option, index) in sweetnessOptions"
           :key="index"
@@ -22,7 +22,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="酸味">
-      <el-checkbox-group v-model="acidity">
+      <el-checkbox-group v-model="tasteForm.acidity">
         <el-checkbox
           v-for="(option, index) in acidityOptions"
           :key="index"
@@ -32,7 +32,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="タンニン">
-      <el-checkbox-group v-model="tannin">
+      <el-checkbox-group v-model="tasteForm.tannin">
         <el-checkbox
           v-for="(option, index) in tanninOptions"
           :key="index"
@@ -42,7 +42,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="バランス">
-      <el-checkbox-group v-model="balance">
+      <el-checkbox-group v-model="tasteForm.balance">
         <el-checkbox
           v-for="(option, index) in balanceOptions"
           :key="index"
@@ -52,9 +52,9 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="アルコール">
-      <el-checkbox-group v-model="alchole">
+      <el-checkbox-group v-model="tasteForm.alcohol">
         <el-checkbox
-          v-for="(option, index) in alcholeOptions"
+          v-for="(option, index) in alcoholOptions"
           :key="index"
           :label="option"
           :value="option"
@@ -62,7 +62,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="余韻">
-      <el-checkbox-group v-model="aftertaste">
+      <el-checkbox-group v-model="tasteForm.aftertaste">
         <el-checkbox
           v-for="(option, index) in aftertasteOptions"
           :key="index"
@@ -78,6 +78,8 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { FormItem, Checkbox, CheckboxGroup } from "element-ui";
 
+import { TasteFields } from "@/types/types";
+
 @Component({
   components: {
     "el-checkbox": Checkbox,
@@ -86,16 +88,15 @@ import { FormItem, Checkbox, CheckboxGroup } from "element-ui";
   }
 })
 export default class Taste extends Vue {
-  private tasteForm = {};
-
-  // Each Categories
-  private attack = [];
-  private sweetness = [];
-  private acidity = [];
-  private tannin = [];
-  private balance = [];
-  private alchole = [];
-  private aftertaste = [];
+  private tasteForm: TasteFields = {
+    attack: [],
+    sweetness: [],
+    acidity: [],
+    tannin: [],
+    balance: [],
+    alcohol: [],
+    aftertaste: []
+  };
 
   // Options
   readonly attackOptions = [
@@ -142,7 +143,7 @@ export default class Taste extends Vue {
     "流れるような",
     "ふくよかな"
   ];
-  readonly alcholeOptions = [
+  readonly alcoholOptions = [
     "軽め",
     "やや軽め",
     "中程度",
@@ -151,28 +152,15 @@ export default class Taste extends Vue {
   ];
   readonly aftertasteOptions = ["短い", "やや短い", "やや長い", "長い"];
 
-  private setFormInput() {
-    return (this.tasteForm = {
-      attack: this.attack,
-      sweetness: this.sweetness,
-      acidity: this.acidity,
-      tannin: this.tannin,
-      balance: this.balance,
-      alchole: this.alchole,
-      aftertaste: this.aftertaste
-    });
-  }
-
-  @Watch("attack")
-  @Watch("sweetness")
-  @Watch("acidity")
-  @Watch("tannin")
-  @Watch("balance")
-  @Watch("alchole")
-  @Watch("aftertaste")
+  @Watch("tasteForm.attack")
+  @Watch("tasteForm.sweetness")
+  @Watch("tasteForm.acidity")
+  @Watch("tasteForm.tannin")
+  @Watch("tasteForm.balance")
+  @Watch("tasteForm.alcohol")
+  @Watch("tasteForm.aftertaste")
   updateForm() {
-    const updatedForm = this.setFormInput();
-    this.$emit("updateForm", updatedForm, "taste");
+    this.$emit("updateForm", this.tasteForm, "taste");
   }
 }
 </script>

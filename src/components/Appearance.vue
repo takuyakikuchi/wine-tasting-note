@@ -2,7 +2,7 @@
   <div>
     <h1>外観</h1>
     <el-form-item label="清澄度">
-      <el-checkbox-group v-model="clarity">
+      <el-checkbox-group v-model="appearanceForm.clarity">
         <el-checkbox
           v-for="(option, index) in clarityOptions"
           :key="index"
@@ -12,7 +12,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="輝き">
-      <el-checkbox-group v-model="brightness">
+      <el-checkbox-group v-model="appearanceForm.brightness">
         <el-checkbox
           v-for="(option, index) in brightnessOptions"
           :key="index"
@@ -22,7 +22,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="色調">
-      <el-checkbox-group v-model="tone">
+      <el-checkbox-group v-model="appearanceForm.tone">
         <el-checkbox
           v-for="(option, index) in toneOptions"
           :key="index"
@@ -32,7 +32,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="濃淡">
-      <el-checkbox-group v-model="shades">
+      <el-checkbox-group v-model="appearanceForm.shades">
         <el-checkbox
           v-for="(option, index) in shadesOptions"
           :key="index"
@@ -42,7 +42,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="粘性">
-      <el-checkbox-group v-model="viscosity">
+      <el-checkbox-group v-model="appearanceForm.viscosity">
         <el-checkbox
           v-for="(option, index) in viscosityOptions"
           :key="index"
@@ -52,7 +52,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="外観の印象">
-      <el-checkbox-group v-model="appearanceImpression">
+      <el-checkbox-group v-model="appearanceForm.appearanceImpression">
         <el-checkbox
           v-for="(option, index) in appearanceImpressionOptions"
           :key="index"
@@ -68,6 +68,8 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { FormItem, Checkbox, CheckboxGroup } from "element-ui";
 
+import { AppearanceFields } from "@/types/types";
+
 @Component({
   components: {
     "el-checkbox": Checkbox,
@@ -76,15 +78,14 @@ import { FormItem, Checkbox, CheckboxGroup } from "element-ui";
   }
 })
 export default class Appearance extends Vue {
-  private appearanceForm = {};
-
-  // Each Categories
-  private clarity = [];
-  private brightness = [];
-  private tone = [];
-  private shades = [];
-  private viscosity = [];
-  private appearanceImpression = [];
+  private appearanceForm: AppearanceFields = {
+    clarity: [],
+    brightness: [],
+    tone: [],
+    shades: [],
+    viscosity: [],
+    appearanceImpression: []
+  };
 
   // Options
   readonly clarityOptions = ["澄んだ", "深みのある", "やや濁った", "濁った"];
@@ -120,26 +121,15 @@ export default class Appearance extends Vue {
     "濃縮感が強い"
   ];
 
-  private setFormInput() {
-    return (this.appearanceForm = {
-      clarity: this.clarity,
-      brightness: this.brightness,
-      tone: this.tone,
-      shades: this.shades,
-      viscosity: this.viscosity,
-      appearanceImpression: this.appearanceImpression
-    });
-  }
-
-  @Watch("clarity")
-  @Watch("brightness")
-  @Watch("tone")
-  @Watch("shades")
-  @Watch("viscosity")
-  @Watch("appearanceImpression")
+  @Watch("appearanceForm.clarity")
+  @Watch("appearanceForm.brightness")
+  @Watch("appearanceForm.tone")
+  @Watch("appearanceForm.shades")
+  @Watch("appearanceForm.viscosity")
+  @Watch("appearanceForm.appearanceImpression")
   updateForm() {
-    const updatedForm = this.setFormInput();
-    this.$emit("updateForm", updatedForm, "appearance");
+    // const updatedForm = this.setFormInput();
+    this.$emit("updateForm", this.appearanceForm, "appearance");
   }
 }
 </script>

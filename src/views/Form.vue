@@ -5,7 +5,7 @@
     <taste @updateForm="updateForm" />
     <conclusion @updateForm="updateForm" />
     <el-form-item>
-      <el-button type="primary">Create</el-button>
+      <el-button type="primary" native-type="button">Create</el-button>
       <el-button>Cancel</el-button>
     </el-form-item>
   </el-form>
@@ -15,7 +15,10 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Form, FormItem, Button } from "element-ui";
 
-// Categories
+// Types
+import { FormFields } from "@/types/types";
+
+// Custom components
 import Appearance from "@/components/Appearance.vue";
 import Aroma from "@/components/Aroma.vue";
 import Conclusion from "@/components/Conclusion.vue";
@@ -33,15 +36,44 @@ import Taste from "@/components/Taste.vue";
   }
 })
 export default class MainForm extends Vue {
-  formInput = {
-    appearance: {},
-    aroma: {},
-    taste: {},
-    conclusion: {}
+  formInput: FormFields = {
+    appearance: null,
+    aroma: null,
+    taste: null,
+    conclusion: null
   };
 
+  // TODO: Type needs to be change
   private updateForm(input: any, category: string) {
-    this.formInput[category] = input;
+    switch (category) {
+      case "appearance":
+        this.formInput.appearance = input;
+        break;
+      case "aroma":
+        this.formInput.aroma = input;
+        break;
+      case "taste":
+        this.formInput.taste = input;
+        break;
+      case "conclusion":
+        this.formInput.conclusion = input;
+        break;
+    }
   }
+
+  // -------------- Comment ----------
+  // private buildComment() {
+  //   const test = this.appearanceComment();
+  //   console.log(test);
+  // }
+
+  // private appearanceComment() {
+  //   const appearanceInput = { ...this.formInput.appearance };
+  //   let comment = "";
+  //   appearanceInput.clarity.forEach(element => {
+  //     comment = `清澄度は、${element}`;
+  //   });
+  //   return comment;
+  // }
 }
 </script>
