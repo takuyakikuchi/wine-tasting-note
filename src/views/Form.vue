@@ -111,6 +111,10 @@ export default class MainForm extends Vue {
     const copyText = document.querySelector("textarea");
     copyText?.select();
     document.execCommand("copy");
+    this.$message({
+      message: "Copied!",
+      type: "success"
+    });
   }
 }
 </script>
