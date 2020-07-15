@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <el-form label-width="120px">
+  <div class="container m-4">
+    <el-form label-width="120px" size="mini">
       <appearance @updateForm="updateForm" />
       <aroma @updateForm="updateForm" />
       <taste @updateForm="updateForm" />

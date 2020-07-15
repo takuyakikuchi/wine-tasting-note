@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>香り</h1>
+    <el-form-item label="香り" />
     <el-form-item label="第一印象">
       <el-checkbox-group v-model="aromaForm.firstImpression">
         <el-checkbox
@@ -31,7 +31,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="芳香/香辛料/化学物質">
+    <el-form-item label="芳香/香辛料">
       <el-checkbox-group v-model="aromaForm.spice">
         <el-checkbox
           v-for="(option, index) in spiceOptions"

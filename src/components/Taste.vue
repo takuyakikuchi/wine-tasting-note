@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>味わい</h1>
+    <el-form-item label="味わい" />
     <el-form-item label="アタック">
       <el-checkbox-group v-model="tasteForm.attack">
         <el-checkbox

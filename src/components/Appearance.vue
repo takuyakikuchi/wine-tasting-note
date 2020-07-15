@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>外観</h1>
+  <div class="grid gap-1">
+    <el-form-item label="外観" />
     <el-form-item label="清澄度">
       <el-checkbox-group v-model="appearanceForm.clarity">
         <el-checkbox
