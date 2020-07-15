@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <el-form label-width="120px">
       <appearance @updateForm="updateForm" />
       <aroma @updateForm="updateForm" />
