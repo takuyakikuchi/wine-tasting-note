@@ -1,5 +1,5 @@
 <template>
-  <div class="grid gap-1">
+  <div>
     <el-form-item label="外観" />
     <el-form-item label="清澄度">
       <el-checkbox-group v-model="appearanceForm.clarity">
