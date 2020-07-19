@@ -12,7 +12,7 @@
         <el-button>Cancel</el-button>
       </el-form-item>
     </el-form>
-    <comment :formInput="formInput" ref="comment" />
+    <comment :formInput="formInput" ref="comment" class="m-8" />
   </div>
 </template>
 

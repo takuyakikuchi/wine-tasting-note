@@ -1,6 +1,12 @@
 <template>
   <div>
-    <el-input type="textarea" v-model="generatedComment" />
+    <h1 class="text-gray-600">生成コメント</h1>
+    <el-input
+      autosize
+      class="mb-5"
+      type="textarea"
+      v-model="generatedComment"
+    />
     <el-button type="primary" native-type="button" @click="copyComment"
       >Copy</el-button
     >
