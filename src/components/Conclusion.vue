@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>評価、結論</h1>
+    <el-form-item label="評価、結論" />
     <el-form-item label="評価">
       <el-checkbox-group v-model="conclusionForm.evaluation">
         <el-checkbox
