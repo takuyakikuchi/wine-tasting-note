@@ -23,10 +23,10 @@
           ><i class="el-icon-goblet-full"></i
         ></span>
       </el-form-item>
-      <appearance @updateForm="updateForm" />
-      <aroma @updateForm="updateForm" />
-      <taste @updateForm="updateForm" />
-      <conclusion @updateForm="updateForm" />
+      <appearance :wineType="wineType" @updateForm="updateForm" />
+      <aroma :wineType="wineType" @updateForm="updateForm" />
+      <taste :wineType="wineType" @updateForm="updateForm" />
+      <conclusion :wineType="wineType" @updateForm="updateForm" />
       <el-form-item>
         <el-button type="primary" native-type="button" @click="callComment"
           >Create</el-button
@@ -34,7 +34,12 @@
         <el-button>Cancel</el-button>
       </el-form-item>
     </el-form>
-    <comment :formInput="formInput" ref="comment" class="m-8" />
+    <comment
+      :formInput="formInput"
+      :wineType="wineType"
+      ref="comment"
+      class="m-8"
+    />
   </div>
 </template>
 
@@ -76,7 +81,7 @@ export default class MainForm extends Vue {
     conclusion: null
   };
 
-  wineType = "red";
+  private wineType = "red";
 
   // -------------- Methods ------------
   // TODO: Type needs to be change

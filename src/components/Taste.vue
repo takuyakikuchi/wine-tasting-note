@@ -4,7 +4,7 @@
     <el-form-item label="アタック">
       <el-checkbox-group v-model="tasteForm.attack">
         <el-checkbox
-          v-for="(option, index) in attackOptions"
+          v-for="(option, index) in tasteOptions.attackOptions"
           :key="index"
           :label="option"
           :value="option"
@@ -14,7 +14,7 @@
     <el-form-item label="甘み">
       <el-checkbox-group v-model="tasteForm.sweetness">
         <el-checkbox
-          v-for="(option, index) in sweetnessOptions"
+          v-for="(option, index) in tasteOptions.sweetnessOptions"
           :key="index"
           :label="option"
           :value="option"
@@ -24,17 +24,17 @@
     <el-form-item label="酸味">
       <el-checkbox-group v-model="tasteForm.acidity">
         <el-checkbox
-          v-for="(option, index) in acidityOptions"
+          v-for="(option, index) in tasteOptions.acidityOptions"
           :key="index"
           :label="option"
           :value="option"
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="タンニン">
+    <el-form-item :label="wineType === 'red' ? 'タンニン' : '苦味'">
       <el-checkbox-group v-model="tasteForm.tannin">
         <el-checkbox
-          v-for="(option, index) in tanninOptions"
+          v-for="(option, index) in tasteOptions.tanninOptions"
           :key="index"
           :label="option"
           :value="option"
@@ -44,7 +44,7 @@
     <el-form-item label="バランス">
       <el-checkbox-group v-model="tasteForm.balance">
         <el-checkbox
-          v-for="(option, index) in balanceOptions"
+          v-for="(option, index) in tasteOptions.balanceOptions"
           :key="index"
           :label="option"
           :value="option"
@@ -54,7 +54,7 @@
     <el-form-item label="アルコール">
       <el-checkbox-group v-model="tasteForm.alcohol">
         <el-checkbox
-          v-for="(option, index) in alcoholOptions"
+          v-for="(option, index) in tasteOptions.alcoholOptions"
           :key="index"
           :label="option"
           :value="option"
@@ -64,7 +64,7 @@
     <el-form-item label="余韻">
       <el-checkbox-group v-model="tasteForm.aftertaste">
         <el-checkbox
-          v-for="(option, index) in aftertasteOptions"
+          v-for="(option, index) in tasteOptions.aftertasteOptions"
           :key="index"
           :label="option"
           :value="option"
@@ -75,10 +75,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { FormItem, Checkbox, CheckboxGroup } from "element-ui";
 
 import { TasteFields } from "@/types/types";
+
+import { tasteOptions } from "@/constants/tasteOptions";
 
 @Component({
   components: {
@@ -88,6 +90,8 @@ import { TasteFields } from "@/types/types";
   }
 })
 export default class Taste extends Vue {
+  @Prop({ default: "red" }) wineType!: string;
+
   private tasteForm: TasteFields = {
     attack: [],
     sweetness: [],
@@ -99,58 +103,12 @@ export default class Taste extends Vue {
   };
 
   // Options
-  readonly attackOptions = [
-    "軽い",
-    "やや軽い",
-    "やや強い",
-    "強い",
-    "インパクトのある"
-  ];
-  readonly sweetnessOptions = [
-    "ドライ",
-    "ソフトな",
-    "まろやか",
-    "豊かな",
-    "残糖がある"
-  ];
-  readonly acidityOptions = [
-    "キメ細かい",
-    "やさしい",
-    "円みのある",
-    "なめらかな",
-    "爽やかな",
-    "ストレートな",
-    "シャープな",
-    "力強い"
-  ];
-  readonly tanninOptions = [
-    "サラサラとした",
-    "緻密",
-    "力強い",
-    "収斂性のある",
-    "ヴィロードのような",
-    "シルキーな",
-    "溶け込んだ"
-  ];
-  readonly balanceOptions = [
-    "スマートな",
-    "骨格のしっかりした",
-    "固い",
-    "痩せた、渇いた",
-    "豊満な",
-    "肉厚な",
-    "力強い",
-    "流れるような",
-    "ふくよかな"
-  ];
-  readonly alcoholOptions = [
-    "軽め",
-    "やや軽め",
-    "中程度",
-    "やや強め",
-    "熱さを感じる"
-  ];
-  readonly aftertasteOptions = ["短い", "やや短い", "やや長い", "長い"];
+  private tasteOptions = tasteOptions(this.wineType);
+
+  @Watch("wineType")
+  updateOptions() {
+    this.tasteOptions = tasteOptions(this.wineType);
+  }
 
   @Watch("tasteForm.attack")
   @Watch("tasteForm.sweetness")
