@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item label="評価、結論" />
-    <el-form-item label="評価">
+    <el-form-item :label="`評価(${conclusionForm.evaluation.length}/2)`">
       <el-checkbox-group v-model="conclusionForm.evaluation">
         <el-checkbox
           v-for="(option, index) in conclusionOptions.evaluationOptions"
@@ -11,7 +11,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="適正温度">
+    <el-form-item :label="`適正温度(${conclusionForm.temperature.length}/1)`">
       <el-checkbox-group v-model="conclusionForm.temperature">
         <el-checkbox
           v-for="(option, index) in conclusionOptions.temperatureOptions"
@@ -21,7 +21,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="グラス">
+    <el-form-item :label="`グラス(${conclusionForm.glass.length}/1)`">
       <el-checkbox-group v-model="conclusionForm.glass">
         <el-checkbox
           v-for="(option, index) in conclusionOptions.glassOptions"
@@ -31,7 +31,10 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="デカンタージュ" v-if="wineType === 'red'">
+    <el-form-item
+      :label="`デキャンタージュ(${conclusionForm.decantage.length}/1)`"
+      v-if="wineType === 'red'"
+    >
       <el-checkbox-group v-model="conclusionForm.decantage">
         <el-checkbox
           v-for="(option, index) in conclusionOptions.decantageOptions"
@@ -41,7 +44,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="収穫年">
+    <el-form-item :label="`収穫年(${conclusionForm.vintage.length}/1)`">
       <el-checkbox-group v-model="conclusionForm.vintage">
         <el-checkbox
           v-for="(option, index) in conclusionOptions.vintageOptions"
@@ -51,7 +54,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="生産国">
+    <el-form-item :label="`生産国(${conclusionForm.country.length}/1)`">
       <el-checkbox-group v-model="conclusionForm.country">
         <el-checkbox
           v-for="(option, index) in conclusionOptions.countryOptions"
@@ -61,7 +64,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="主なブドウ品種">
+    <el-form-item :label="`主なブドウ品種(${conclusionForm.grape.length}/1)`">
       <el-checkbox-group v-model="conclusionForm.grape">
         <el-checkbox
           v-for="(option, index) in conclusionOptions.grapeOptions"

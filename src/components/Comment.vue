@@ -33,29 +33,34 @@ export default class Comment extends Vue {
   private generatedComment = "";
 
   public buildComment() {
-    this.generatedComment =
+    const regex = /、undefined。|、。/gi;
+    const comment =
       // Appearance
+      "外観: " +
       `清澄度は、${this.formInput.appearance?.clarity?.toString()}。` +
       `輝きは、${this.formInput.appearance?.shades?.toString()}。` +
       `色調は、${this.formInput.appearance?.tone?.toString()}。` +
       `濃淡は、${this.formInput.appearance?.brightness?.toString()}。` +
       `粘性は、${this.formInput.appearance?.viscosity?.toString()}。` +
-      `外観の印象は、${this.formInput.appearance?.appearanceImpression?.toString()}。` +
+      `外観の印象は、${this.formInput.appearance?.appearanceImpression?.toString()}。\n` +
       // Aroma
+      "香り: " +
       `第一印象は、${this.formInput.aroma?.firstImpression?.toString()}。` +
       `果実は、${this.formInput.aroma?.fruit?.toString()}。` +
       `花/植物は、${this.formInput.aroma?.flower?.toString()}。` +
       `芳香/香辛料/化学物質は、${this.formInput.aroma?.spice?.toString()}。` +
-      `香りの印象は、${this.formInput.aroma?.aromaImpression?.toString()}。` +
+      `香りの印象は、${this.formInput.aroma?.aromaImpression?.toString()}。\n` +
       // Taste
+      "味わい: " +
       `アタックは、${this.formInput.taste?.attack?.toString()}。` +
       `甘みは、${this.formInput.taste?.sweetness?.toString()}。` +
       `酸味は、${this.formInput.taste?.acidity?.toString()}。` +
       this.tanninComment(this.wineType) +
       `バランスは、${this.formInput.taste?.balance?.toString()}。` +
       `アルコールは、${this.formInput.taste?.alcohol?.toString()}。` +
-      `余韻は、${this.formInput.taste?.aftertaste?.toString()}。` +
+      `余韻は、${this.formInput.taste?.aftertaste?.toString()}。\n` +
       // Conclusion
+      "評価、結論: " +
       `評価は、${this.formInput.conclusion?.evaluation?.toString()}。` +
       `適正温度は、${this.formInput.conclusion?.temperature?.toString()}。` +
       `グラスは、${this.formInput.conclusion?.glass?.toString()}。` +
@@ -63,6 +68,7 @@ export default class Comment extends Vue {
       `収穫年は、${this.formInput.conclusion?.vintage?.toString()}。` +
       `生産国は、${this.formInput.conclusion?.country?.toString()}。` +
       `主なブドウ品種は、${this.formInput.conclusion?.grape?.toString()}。`;
+    this.generatedComment = comment.replace(regex, "、選択されていません。");
   }
 
   private tanninComment(wineType: string) {

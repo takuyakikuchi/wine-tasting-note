@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item label="外観" />
-    <el-form-item label="清澄度">
+    <el-form-item :label="`清澄度(${appearanceForm.clarity.length}/1)`">
       <el-checkbox-group v-model="appearanceForm.clarity">
         <el-checkbox
           v-for="(option, index) in appearanceOptions.clarityOptions"
@@ -11,7 +11,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="輝き">
+    <el-form-item :label="`輝き(${appearanceForm.brightness.length}/1)`">
       <el-checkbox-group v-model="appearanceForm.brightness">
         <el-checkbox
           v-for="(option, index) in appearanceOptions.brightnessOptions"
@@ -21,7 +21,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="色調">
+    <el-form-item :label="`色調(${appearanceForm.tone.length}/2)`">
       <el-checkbox-group v-model="appearanceForm.tone">
         <el-checkbox
           v-for="(option, index) in appearanceOptions.toneOptions"
@@ -31,7 +31,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="濃淡">
+    <el-form-item :label="`濃淡(${appearanceForm.shades.length}/1)`">
       <el-checkbox-group v-model="appearanceForm.shades">
         <el-checkbox
           v-for="(option, index) in appearanceOptions.shadesOptions"
@@ -41,7 +41,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="粘性">
+    <el-form-item :label="`粘性(${appearanceForm.viscosity.length}/1)`">
       <el-checkbox-group v-model="appearanceForm.viscosity">
         <el-checkbox
           v-for="(option, index) in appearanceOptions.viscosityOptions"
@@ -51,7 +51,9 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="外観の印象">
+    <el-form-item
+      :label="`外観の印象(${appearanceForm.appearanceImpression.length}/2)`"
+    >
       <el-checkbox-group v-model="appearanceForm.appearanceImpression">
         <el-checkbox
           v-for="(option,
@@ -102,7 +104,6 @@ export default class Appearance extends Vue {
 
   @Watch("appearanceForm", { deep: true })
   updateForm() {
-    // const updatedForm = this.setFormInput();
     this.$emit("updateForm", this.appearanceForm, "appearance");
   }
 }

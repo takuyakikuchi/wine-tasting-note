@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item label="味わい" />
-    <el-form-item label="アタック">
+    <el-form-item :label="`アタック(${tasteForm.attack.length}/1)`">
       <el-checkbox-group v-model="tasteForm.attack">
         <el-checkbox
           v-for="(option, index) in tasteOptions.attackOptions"
@@ -11,7 +11,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="甘み">
+    <el-form-item :label="`甘み(${tasteForm.sweetness.length}/1)`">
       <el-checkbox-group v-model="tasteForm.sweetness">
         <el-checkbox
           v-for="(option, index) in tasteOptions.sweetnessOptions"
@@ -21,7 +21,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="酸味">
+    <el-form-item :label="`酸味(${tasteForm.acidity.length}/1)`">
       <el-checkbox-group v-model="tasteForm.acidity">
         <el-checkbox
           v-for="(option, index) in tasteOptions.acidityOptions"
@@ -31,7 +31,13 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item :label="wineType === 'red' ? 'タンニン' : '苦味'">
+    <el-form-item
+      :label="
+        wineType === 'red'
+          ? `タンニン(${tasteForm.tannin.length}/1)`
+          : `苦味(${tasteForm.tannin.length}/1)`
+      "
+    >
       <el-checkbox-group v-model="tasteForm.tannin">
         <el-checkbox
           v-for="(option, index) in tasteOptions.tanninOptions"
@@ -41,7 +47,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="バランス">
+    <el-form-item :label="`バランス(${tasteForm.balance.length}/2)`">
       <el-checkbox-group v-model="tasteForm.balance">
         <el-checkbox
           v-for="(option, index) in tasteOptions.balanceOptions"
@@ -51,7 +57,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="アルコール">
+    <el-form-item :label="`アルコール(${tasteForm.alcohol.length}/1)`">
       <el-checkbox-group v-model="tasteForm.alcohol">
         <el-checkbox
           v-for="(option, index) in tasteOptions.alcoholOptions"
@@ -61,7 +67,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="余韻">
+    <el-form-item :label="`余韻(${tasteForm.aftertaste.length}/1)`">
       <el-checkbox-group v-model="tasteForm.aftertaste">
         <el-checkbox
           v-for="(option, index) in tasteOptions.aftertasteOptions"

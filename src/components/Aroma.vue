@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item label="香り" />
-    <el-form-item label="第一印象">
+    <el-form-item :label="`第一印象(${aromaForm.firstImpression.length}/2)`">
       <el-checkbox-group v-model="aromaForm.firstImpression">
         <el-checkbox
           v-for="(option, index) in aromaOptions.firstImpressionOptions"
@@ -11,7 +11,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="果実">
+    <el-form-item :label="`果実(${aromaForm.fruit.length}/4)`">
       <el-checkbox-group v-model="aromaForm.fruit">
         <el-checkbox
           v-for="(option, index) in aromaOptions.fruitOptions"
@@ -21,7 +21,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="花/植物">
+    <el-form-item :label="`花/植物(${aromaForm.flower.length}/2)`">
       <el-checkbox-group v-model="aromaForm.flower">
         <el-checkbox
           v-for="(option, index) in aromaOptions.flowerOptions"
@@ -31,7 +31,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="芳香/香辛料">
+    <el-form-item :label="`芳香/香辛料(${aromaForm.spice.length}/2)`">
       <el-checkbox-group v-model="aromaForm.spice">
         <el-checkbox
           v-for="(option, index) in aromaOptions.spiceOptions"
@@ -41,7 +41,7 @@
         ></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="香りの印象">
+    <el-form-item :label="`香りの印象(${aromaForm.aromaImpression.length}/2)`">
       <el-checkbox-group v-model="aromaForm.aromaImpression">
         <el-checkbox
           v-for="(option, index) in aromaOptions.aromaImpressionOptions"
