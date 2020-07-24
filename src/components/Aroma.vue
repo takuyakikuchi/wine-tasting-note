@@ -88,11 +88,7 @@ export default class Aroma extends Vue {
     this.aromaOptions = aromaOptions(this.wineType);
   }
 
-  @Watch("aromaForm.firstImpression")
-  @Watch("aromaForm.fruit")
-  @Watch("aromaForm.flower")
-  @Watch("aromaForm.spice")
-  @Watch("aromaForm.aromaImpression")
+  @Watch("aromaForm", { deep: true })
   updateForm() {
     this.$emit("updateForm", this.aromaForm, "aroma");
   }

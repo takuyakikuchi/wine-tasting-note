@@ -110,13 +110,7 @@ export default class Taste extends Vue {
     this.tasteOptions = tasteOptions(this.wineType);
   }
 
-  @Watch("tasteForm.attack")
-  @Watch("tasteForm.sweetness")
-  @Watch("tasteForm.acidity")
-  @Watch("tasteForm.tannin")
-  @Watch("tasteForm.balance")
-  @Watch("tasteForm.alcohol")
-  @Watch("tasteForm.aftertaste")
+  @Watch("tasteForm", { deep: true })
   updateForm() {
     this.$emit("updateForm", this.tasteForm, "taste");
   }

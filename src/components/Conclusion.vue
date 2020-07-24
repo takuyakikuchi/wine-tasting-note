@@ -110,13 +110,7 @@ export default class Conclusion extends Vue {
     this.conclusionOptions = conclusionOptions(this.wineType);
   }
 
-  @Watch("conclusionForm.evaluation")
-  @Watch("conclusionForm.temperature")
-  @Watch("conclusionForm.glass")
-  @Watch("conclusionForm.decantage")
-  @Watch("conclusionForm.vintage")
-  @Watch("conclusionForm.country")
-  @Watch("conclusionForm.grape")
+  @Watch("conclusionForm", { deep: true })
   updateForm() {
     this.$emit("updateForm", this.conclusionForm, "conclusion");
   }

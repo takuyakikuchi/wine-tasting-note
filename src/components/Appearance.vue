@@ -100,12 +100,7 @@ export default class Appearance extends Vue {
     this.appearanceOptions = appearanceOptions(this.wineType);
   }
 
-  @Watch("appearanceForm.clarity")
-  @Watch("appearanceForm.brightness")
-  @Watch("appearanceForm.tone")
-  @Watch("appearanceForm.shades")
-  @Watch("appearanceForm.viscosity")
-  @Watch("appearanceForm.appearanceImpression")
+  @Watch("appearanceForm", { deep: true })
   updateForm() {
     // const updatedForm = this.setFormInput();
     this.$emit("updateForm", this.appearanceForm, "appearance");
