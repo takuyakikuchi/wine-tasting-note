@@ -28,11 +28,11 @@ import { FormFields } from "@/types/types";
 })
 export default class Comment extends Vue {
   @Prop({ default: null }) formInput!: FormFields;
+  @Prop({ default: "red" }) wineType!: string;
 
   private generatedComment = "";
 
   public buildComment() {
-    console.log("in");
     this.generatedComment =
       // Appearance
       `清澄度は、${this.formInput.appearance?.clarity?.toString()}。` +
@@ -51,7 +51,7 @@ export default class Comment extends Vue {
       `アタックは、${this.formInput.taste?.attack?.toString()}。` +
       `甘みは、${this.formInput.taste?.sweetness?.toString()}。` +
       `酸味は、${this.formInput.taste?.acidity?.toString()}。` +
-      `タンニンは、${this.formInput.taste?.tannin?.toString()}。` +
+      this.tanninComment(this.wineType) +
       `バランスは、${this.formInput.taste?.balance?.toString()}。` +
       `アルコールは、${this.formInput.taste?.alcohol?.toString()}。` +
       `余韻は、${this.formInput.taste?.aftertaste?.toString()}。` +
@@ -59,10 +59,21 @@ export default class Comment extends Vue {
       `評価は、${this.formInput.conclusion?.evaluation?.toString()}。` +
       `適正温度は、${this.formInput.conclusion?.temperature?.toString()}。` +
       `グラスは、${this.formInput.conclusion?.glass?.toString()}。` +
-      `デキャンタージュは、${this.formInput.conclusion?.decantage?.toString()}。` +
+      this.decantageComment(this.wineType) +
       `収穫年は、${this.formInput.conclusion?.vintage?.toString()}。` +
       `生産国は、${this.formInput.conclusion?.country?.toString()}。` +
       `主なブドウ品種は、${this.formInput.conclusion?.grape?.toString()}。`;
+  }
+
+  private tanninComment(wineType: string) {
+    const label = wineType === "red" ? "タンニン" : "苦味";
+    return `${label}は、${this.formInput.taste?.tannin?.toString()}。`;
+  }
+
+  private decantageComment(wineType: string) {
+    return wineType === "red"
+      ? `デキャンタージュは、${this.formInput.conclusion?.decantage?.toString()}。`
+      : "";
   }
 
   private copyComment() {

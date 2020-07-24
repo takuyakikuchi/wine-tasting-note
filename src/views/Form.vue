@@ -1,10 +1,32 @@
 <template>
-  <div class="container m-4">
+  <div
+    class="container rounded-lg m-4"
+    :class="wineType === 'red' ? 'bg-red-100' : 'bg-yellow-100'"
+  >
     <el-form label-width="120px" size="mini">
-      <appearance @updateForm="updateForm" />
-      <aroma @updateForm="updateForm" />
-      <taste @updateForm="updateForm" />
-      <conclusion @updateForm="updateForm" />
+      <el-form-item label="タイプ">
+        <span
+          class="text-lg align-middle"
+          :class="wineType === 'red' ? 'text-pink-800' : 'text-gray-300'"
+          ><i class="el-icon-goblet-full"></i
+        ></span>
+        <el-switch
+          v-model="wineType"
+          inactive-color="#97266d"
+          active-color="#faf089"
+          inactive-value="red"
+          active-value="white"
+        />
+        <span
+          class="text-lg align-middle"
+          :class="wineType === 'white' ? 'text-yellow-300' : 'text-gray-300'"
+          ><i class="el-icon-goblet-full"></i
+        ></span>
+      </el-form-item>
+      <appearance :wineType="wineType" @updateForm="updateForm" />
+      <aroma :wineType="wineType" @updateForm="updateForm" />
+      <taste :wineType="wineType" @updateForm="updateForm" />
+      <conclusion :wineType="wineType" @updateForm="updateForm" />
       <el-form-item>
         <el-button type="primary" native-type="button" @click="callComment"
           >Create</el-button
@@ -12,7 +34,12 @@
         <el-button>Cancel</el-button>
       </el-form-item>
     </el-form>
-    <comment :formInput="formInput" ref="comment" class="m-8" />
+    <comment
+      :formInput="formInput"
+      :wineType="wineType"
+      ref="comment"
+      class="m-8"
+    />
   </div>
 </template>
 
@@ -44,6 +71,9 @@ import Taste from "@/components/Taste.vue";
   }
 })
 export default class MainForm extends Vue {
+  // -------------- Data --------------
+  $refs!: { comment: Comment };
+
   formInput: FormFields = {
     appearance: null,
     aroma: null,
@@ -51,6 +81,9 @@ export default class MainForm extends Vue {
     conclusion: null
   };
 
+  private wineType = "red";
+
+  // -------------- Methods ------------
   // TODO: Type needs to be change
   private updateForm(input: any, category: string) {
     switch (category) {
@@ -69,15 +102,8 @@ export default class MainForm extends Vue {
     }
   }
 
-  $refs!: {
-    comment: Comment;
-  };
-
-  private commentExist = false;
-
   private callComment() {
     this.$refs.comment.buildComment();
-    this.commentExist = true;
   }
 }
 </script>
